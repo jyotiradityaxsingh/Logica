@@ -1,4 +1,4 @@
-from Logica import BooleanAlgebra  # Assuming the 'BooleanAlgebra' class is defined in 'Logica.py'
+from Logica import BooleanAlgebra
 
 print('''
  /$$                           /$$                    
