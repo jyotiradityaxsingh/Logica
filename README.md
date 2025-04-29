@@ -1,3 +1,6 @@
+![Banner](/Logica/Resources/Banner (Logica).png)
+
+
 # Logica
 
 This Program Is Designed To Help With **Digital Electronics**, Making It Easier To Learn And Apply Digital Electronics Concepts
