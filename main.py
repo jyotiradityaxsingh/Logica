@@ -18,7 +18,7 @@ print('''
 Commands:
 
 1> Boolean Algebra (Using Two Values)
-3> Binary Operations (Addition, Subtraction, Multiplication And Division)
+2> Binary Operations (Addition, Subtraction, Multiplication And Division)
 ''')
 
 try:
