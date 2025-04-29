@@ -69,28 +69,6 @@ Commands:
 
 ---
 
-## Code Overview
-
-### `BooleanAlgebra` Class
-
-- **Constructor (`__init__`)**: Initializes The Class With Two Boolean Values. Raises An Error If The Values Are Not Booleans.
-- **Method (`logicGates`)**: Performs The Boolean Operation Based On The Selected Gate.
-
-### `BinaryOperations` Class
-
-- **Constructor (`__init__`)**: Initializes The Class With Two Integer Values. Raises An Error If The Values Are Not Integers.
-- **Methods**:
-  - **binaryAddition()**: Performs Binary Addition And Prints Intermediate Steps.
-  - **binarySubtraction()**: Performs Binary Subtraction Using Two's Complement And Prints Intermediate Steps.
-  - **binaryMultiplication()**: Performs Binary Multiplication Using The Shift-And-Add Method.
-  - **binaryDivision()**: Performs Binary Division, Showing The Quotient And Remainder.
-
-### `main.py`
-- This File Serves As The Interactive Command-Line Interface Where Users Can Select The Operation They Wish To Perform And Provide Inputs Accordingly.
-- It Imports The **BooleanAlgebra** And **BinaryOperations** Classes From Their Respective Modules And Allows Users To Interact With Them.
-
----
-
 ## Example
 
 ### Boolean Algebra Example:
@@ -126,7 +104,7 @@ Generate **Truth Tables** For All Boolean Gates To Visually Understand How Each 
 ### 2. **Hexadecimal/Binary/Decimal Conversion**
 Convert Between **Binary**, **Decimal**, And **Hexadecimal** Representations of Numbers. Input Values In Different Formats And The Program Will Automatically Handle The Conversion For Calculations.
 
-### 3. **shift And Rotate Operations**
+### 3. **Shift And Rotate Operations**
 Implement **Logical**, **Arithmetic**, And **Rotate Shifts** For Binary Numbers, Enabling Operations Like Left And Right Shifts And Rotations.
 
 ### 4. **Boolean Expression Simplification**
@@ -138,7 +116,7 @@ Create And Simulate **Complex Logic Circuits** Using Combinations of Basic Gates
 ### 6. **Signed Binary Numbers (Two's Complement)**
 Support For **Signed Binary** Numbers Using **Two's Complement**, Allowing The Handling of Negative Binary Values In All Arithmetic Operations.
 
-### 7. **floating Point Arithmetic**
+### 7. **Floating Point Arithmetic**
 Support For **Floating-Point Arithmetic** Following The **IEEE 754** Standard, Useful For Simulating Real-world Digital Systems.
 
 ### 8. **Timing Analysis For Logic Gates**
