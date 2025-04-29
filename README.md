@@ -1,4 +1,4 @@
-![Banner](/Logica/Resources/Banner (Logica).png)
+![Banner](Resources/Banner (Logica).png)
 
 
 # Logica
