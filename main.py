@@ -1,4 +1,4 @@
-from Logica import BooleanAlgebra, BinaryOperations
+from Logica import BooleanAlgebra, BinaryOperations, TruthTables
 
 print(r'''
  /$$                           /$$                    
@@ -18,7 +18,8 @@ print('''
 Commands:
 
 1> Boolean Algebra (Using Two Values)
-2> Binary Operations (Addition, Subtraction, Multiplication And Division)
+2> Truth Tables
+3> Binary Operations (Addition, Subtraction, Multiplication And Division)
 ''')
 
 try:
@@ -52,9 +53,24 @@ try:
             if logicGate not in range(1, 8):
                 print("Invalid Logic Gate Selection! Please choose a number between 1 and 7.")
             else:
-                booleanAlgebraCls.logicGates(logicGate)
+                result = booleanAlgebraCls.logicGates(logicGate)
+                print(f"Result: {result}")
         except ValueError:
             print("Invalid Input! Please Enter A Number Between 1 And 7")
+
+    elif usrInput == 2:
+        valueOneInput = input('Enter Value One (Either True or False)> ')
+        valueTwoInput = input('Enter Value Two (Either True or False)> ')
+
+        if valueOneInput not in ['True', 'False'] or valueTwoInput not in ['True', 'False']:
+            print("Invalid Input! Please Enter 'True' or 'False' Only")
+            exit()
+
+        valueOne = valueOneInput == 'True'
+        valueTwo = valueTwoInput == 'True'
+
+        truthTablesCls = TruthTables(valueOne, valueTwo)
+        print(truthTablesCls.generate_truth_table())
 
     elif usrInput == 3:
         print('''
@@ -90,6 +106,9 @@ try:
 
         except ValueError:
             print("Invalid Operation Input! Please Enter A Number Between 1 And 4")
+
+    else:
+        print("Invalid Command Input! Please Enter A Valid Integer For Command Selection")
 
 except ValueError:
     print("Invalid Command Input! Please Enter A Valid Integer For Command Selection")
