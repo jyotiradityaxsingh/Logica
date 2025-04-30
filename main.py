@@ -70,7 +70,7 @@ try:
         valueTwo = valueTwoInput == 'True'
 
         truthTablesCls = TruthTables(valueOne, valueTwo)
-        print(truthTablesCls.generate_truth_table())
+        print(truthTablesCls.generateTable())
 
     elif usrInput == 3:
         print('''
