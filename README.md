@@ -98,8 +98,6 @@ Result (Binary): 1000
 
 ## Future Features (Coming Soon!)
 
-### 1. **Truth Tables For Boolean Operations**
-Generate **Truth Tables** For All Boolean Gates To Visually Understand How Each Gate Operates On Different Combinations of Inputs.
 
 ### 2. **Hexadecimal/Binary/Decimal Conversion**
 Convert Between **Binary**, **Decimal**, And **Hexadecimal** Representations of Numbers. Input Values In Different Formats And The Program Will Automatically Handle The Conversion For Calculations.
