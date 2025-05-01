@@ -1,4 +1,4 @@
-from tabulate import tab
+from tabulate import tabulate
 
 class BooleanAlgebra:
     """
@@ -247,3 +247,96 @@ class TruthTables:
                       self.valueOne == self.valueTwo])
 
         return tabulate(table, headers, tablefmt="grid")
+
+class NumberSystemConversion:
+    """
+    A Class To Handle Conversion Between Binary, Decimal, And Hexadecimal Formats.
+    """
+
+    @staticmethod
+    def decimalToBinary(decimal: int) -> str:
+        """
+        Converts a Decimal Number To Binary Representation.
+        
+        Args:
+            decimal (int): The Decimal Number To Convert.
+        
+        Returns:
+            str: The Binary Representation.
+        """
+        if decimal < 0:
+            raise ValueError("Negative numbers are not supported")
+        return bin(decimal)[2:]
+
+    @staticmethod
+    def decimalToHexadecimal(decimal: int) -> str:
+        """
+        Converts a Decimal Number To Hexadecimal Representation.
+        
+        Args:
+            decimal (int): The Decimal Number To Convert.
+        
+        Returns:
+            str: The Hexadecimal Representation.
+        """
+        if decimal < 0:
+            raise ValueError("Negative numbers are not supported")
+        return hex(decimal)[2:].upper()
+
+    @staticmethod
+    def binaryToDecimal(binary: str) -> int:
+        """
+        Converts a Binary Number To Decimal Representation.
+        
+        Args:
+            binary (str): The Binary Number To Convert.
+        
+        Returns:
+            int: The Decimal Representation.
+        """
+        if not all(c in '01' for c in binary):
+            raise ValueError("Binary string must only contain 0's and 1's")
+        return int(binary, 2)
+
+    @staticmethod
+    def binaryToHexadecimal(binary: str) -> str:
+        """
+        Converts a Binary Number To Hexadecimal Representation.
+        
+        Args:
+            binary (str): The Binary Number To Convert.
+        
+        Returns:
+            str: The Hexadecimal Representation.
+        """
+        decimal = NumberSystemConversion.binaryToDecimal(binary)
+        return NumberSystemConversion.decimalToHexadecimal(decimal)
+
+    @staticmethod
+    def hexadecimalToDecimal(hexadecimal: str) -> int:
+        """
+        Converts a Hexadecimal Number To Decimal Representation.
+        
+        Args:
+            hexadecimal (str): The Hexadecimal Number To Convert.
+        
+        Returns:
+            int: The Decimal Representation.
+        """
+        if not all(c in '0123456789ABCDEF' for c in hexadecimal.upper()):
+            raise ValueError("Hexadecimal string must only contain valid characters (0-9, A-F)")
+        return int(hexadecimal, 16)
+
+    @staticmethod
+    def hexadecimalToBinary(hexadecimal: str) -> str:
+        """
+        Converts a Hexadecimal Number To Binary Representation.
+        
+        Args:
+            hexadecimal (str): The Hexadecimal Number To Convert.
+        
+        Returns:
+            str: The Binary Representation.
+        """
+        decimal = NumberSystemConversion.hexadecimalToDecimal(hexadecimal)
+        return NumberSystemConversion.decimalToBinary(decimal)

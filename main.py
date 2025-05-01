@@ -1,4 +1,4 @@
-from Logica import BooleanAlgebra, BinaryOperations, TruthTables
+from Logica import BooleanAlgebra, BinaryOperations, TruthTables, NumberSystemConversion
 
 print(r'''
  /$$                           /$$                    
@@ -20,6 +20,7 @@ Commands:
 1> Boolean Algebra (Using Two Values)
 2> Truth Tables
 3> Binary Operations (Addition, Subtraction, Multiplication And Division)
+4> Number System Conversion (Binary, Decimal, Hexadecimal)
 ''')
 
 try:
@@ -53,8 +54,7 @@ try:
             if logicGate not in range(1, 8):
                 print("Invalid Logic Gate Selection! Please choose a number between 1 and 7.")
             else:
-                result = booleanAlgebraCls.logicGates(logicGate)
-                print(f"Result: {result}")
+                booleanAlgebraCls.logicGates(logicGate)
         except ValueError:
             print("Invalid Input! Please Enter A Number Between 1 And 7")
 
@@ -106,6 +106,51 @@ try:
 
         except ValueError:
             print("Invalid Operation Input! Please Enter A Number Between 1 And 4")
+
+    elif usrInput == 4:
+        print('''
+        1> Convert Binary to Decimal
+        2> Convert Binary to Hexadecimal
+        3> Convert Decimal to Binary
+        4> Convert Decimal to Hexadecimal
+        5> Convert Hexadecimal to Binary
+        6> Convert Hexadecimal to Decimal
+        ''')
+
+        operation = int(input('Enter Operation> '))
+        
+        if operation == 1:
+            binaryValue = input('Enter Binary Value> ')
+            decimalResult = NumberSystemConversion.binaryToDecimal(binaryValue)
+            print(f"Binary {binaryValue} To Decimal: {decimalResult}")
+
+        elif operation == 2:
+            binaryValue = input('Enter Binary Value> ')
+            hexadecimalResult = NumberSystemConversion.binaryToHexadecimal(binaryValue)
+            print(f"Binary {binaryValue} To Hexadecimal: {hexadecimalResult}")
+
+        elif operation == 3:
+            decimal_value = int(input('Enter Decimal Value> '))
+            binary_result = NumberSystemConversion.decimalToBinary(decimal_value)
+            print(f"Decimal {decimal_value} To Binary: {binary_result}")
+
+        elif operation == 4:
+            decimal_value = int(input('Enter Decimal Value> '))
+            hexadecimalResult = NumberSystemConversion.decimalToHexadecimal(decimal_value)
+            print(f"Decimal {decimal_value} To Hexadecimal: {hexadecimalResult}")
+
+        elif operation == 5:
+            hexadecimal_value = input('Enter Hexadecimal Value> ')
+            binary_result = NumberSystemConversion.hexadecimalToBinary(hexadecimal_value)
+            print(f"Hexadecimal {hexadecimal_value} To Binary: {binary_result}")
+
+        elif operation == 6:
+            hexadecimal_value = input('Enter Hexadecimal Value> ')
+            decimalResult = NumberSystemConversion.hexadecimalToDecimal(hexadecimal_value)
+            print(f"Hexadecimal {hexadecimal_value} To Decimal: {decimalResult}")
+
+        else:
+            print("Invalid Input! Please Choose A Valid Operation (1-6)")
 
     else:
         print("Invalid Command Input! Please Enter A Valid Integer For Command Selection")
