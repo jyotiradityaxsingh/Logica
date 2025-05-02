@@ -96,15 +96,6 @@ Result (Binary): 1000
 
 ---
 
-## Future Features (Coming Soon!)
-
-
-### 2. **Hexadecimal/Binary/Decimal Conversion**
-Convert Between **Binary**, **Decimal**, And **Hexadecimal** Representations of Numbers. Input Values In Different Formats And The Program Will Automatically Handle The Conversion For Calculations.
-
-### 3. **Shift And Rotate Operations**
-Implement **Logical**, **Arithmetic**, And **Rotate Shifts** For Binary Numbers, Enabling Operations Like Left And Right Shifts And Rotations.
-
 ### 4. **Boolean Expression Simplification**
 Simplify Boolean Expressions Automatically Using **Karnaugh Maps** or **Quine–Mccluskey** Algorithms, Helping You Optimize Logic Circuits And Expressions.
 
