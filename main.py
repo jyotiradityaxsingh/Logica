@@ -19,7 +19,7 @@ Commands:
 
 1> Boolean Algebra (Using Two Values)
 2> Truth Tables
-3> Binary Operations (Addition, Subtraction, Multiplication And Division)
+3> Binary Operations (Addition, Subtraction, Multiplication, Division, Shifts and Rotates)
 4> Number System Conversion (Binary, Decimal, Hexadecimal)
 ''')
 
@@ -54,7 +54,7 @@ try:
             if logicGate not in range(1, 8):
                 print("Invalid Logic Gate Selection! Please choose a number between 1 and 7.")
             else:
-                booleanAlgebraCls.logicGates(logicGate)
+                print(f"Result: {booleanAlgebraCls.logicGates(logicGate)}")
         except ValueError:
             print("Invalid Input! Please Enter A Number Between 1 And 7")
 
@@ -78,17 +78,23 @@ try:
             2> Subtraction
             3> Multiplication
             4> Division
+            5> Logical Left Shift
+            6> Logical Right Shift
+            7> Arithmetic Left Shift
+            8> Arithmetic Right Shift
+            9> Rotate Left Shift
+            10> Rotate Right Shift
         ''')
 
         try:
             operation = int(input('Enter Operation> '))
-            if operation not in range(1, 5):
-                print("Invalid Operation! Please Choose A Number Between 1 And 4")
+            if operation not in range(1, 11):
+                print("Invalid Operation! Please Choose A Number Between 1 And 10")
                 exit()
 
             try:
                 varOne = int(input('Enter Value One> '))
-                varTwo = int(input('Enter Value Two> '))
+                varTwo = int(input('Enter Value Two> ') if operation < 5 else "0")  # Only need second value for addition, subtraction, etc.
             except ValueError:
                 print("Invalid Input! Please Enter Valid Integers For Binary Operations.")
                 exit()
@@ -103,18 +109,36 @@ try:
                 binaryOperationsCls.binaryMultiplication()
             elif operation == 4:
                 binaryOperationsCls.binaryDivision()
+            elif operation == 5:
+                positions = int(input("Enter Number of Positions To Shift Left: "))
+                print(f"Logical Left Shift Result: {binaryOperationsCls.logicalLeftShift(positions)}")
+            elif operation == 6:
+                positions = int(input("Enter Number of Positions To Shift Right: "))
+                print(f"Logical Right Shift Result: {binaryOperationsCls.logicalRightShift(positions)}")
+            elif operation == 7:
+                positions = int(input("Enter Number of Positions To Shift Left: "))
+                print(f"Arithmetic Left Shift Result: {binaryOperationsCls.arithmeticLeftShift(positions)}")
+            elif operation == 8:
+                positions = int(input("Enter Number of Positions To Shift Right: "))
+                print(f"Arithmetic Right Shift Result: {binaryOperationsCls.arithmeticRightShift(positions)}")
+            elif operation == 9:
+                positions = int(input("Enter Number of Positions To Rotate Left: "))
+                print(f"Rotate Left Shift Result: {binaryOperationsCls.rotateLeftShift(positions)}")
+            elif operation == 10:
+                positions = int(input("Enter Number of Positions To Rotate Right: "))
+                print(f"Rotate Right Shift Result: {binaryOperationsCls.rotateRightShift(positions)}")
 
         except ValueError:
-            print("Invalid Operation Input! Please Enter A Number Between 1 And 4")
+            print("Invalid Operation Input! Please Enter A Number Between 1 And 10")
 
     elif usrInput == 4:
         print('''
-        1> Convert Binary to Decimal
-        2> Convert Binary to Hexadecimal
-        3> Convert Decimal to Binary
-        4> Convert Decimal to Hexadecimal
-        5> Convert Hexadecimal to Binary
-        6> Convert Hexadecimal to Decimal
+        1> Convert Binary To Decimal
+        2> Convert Binary To Hexadecimal
+        3> Convert Decimal To Binary
+        4> Convert Decimal To Hexadecimal
+        5> Convert Hexadecimal To Binary
+        6> Convert Hexadecimal To Decimal
         ''')
 
         operation = int(input('Enter Operation> '))
