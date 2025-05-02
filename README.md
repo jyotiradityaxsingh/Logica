@@ -95,26 +95,27 @@ Result (Binary): 1000
 ```
 
 ---
+## Future Updates
 
-### 4. **Boolean Expression Simplification**
+### 1. **Boolean Expression Simplification**
 Simplify Boolean Expressions Automatically Using **Karnaugh Maps** or **Quine–Mccluskey** Algorithms, Helping You Optimize Logic Circuits And Expressions.
 
-### 5. **Simulate Logic Circuits**
+### 2. **Simulate Logic Circuits**
 Create And Simulate **Complex Logic Circuits** Using Combinations of Basic Gates (And, or, Not, Etc.), And Visualize The Results.
 
-### 6. **Signed Binary Numbers (Two's Complement)**
+### 3. **Signed Binary Numbers (Two's Complement)**
 Support For **Signed Binary** Numbers Using **Two's Complement**, Allowing The Handling of Negative Binary Values In All Arithmetic Operations.
 
-### 7. **Floating Point Arithmetic**
+### 4. **Floating Point Arithmetic**
 Support For **Floating-Point Arithmetic** Following The **IEEE 754** Standard, Useful For Simulating Real-world Digital Systems.
 
-### 8. **Timing Analysis For Logic Gates**
+### 5. **Timing Analysis For Logic Gates**
 Analyze The **Propagation Delay** of Logic Gates And Simulate The Behavior of Digital Circuits Over Time, A Critical Feature In Real-world Hardware Design.
 
-### 9. **Graphical User Interface (GUI)**
+### 6. **Graphical User Interface (GUI)**
 Transition From The Command Line To A **GUI** Using **Tkinter** or **PyQt**, Making It More User-friendly For Beginners To Interact With Logic Gates And Perform Operations Visually.
 
-### 10. **Log Files And History of Operations**
+### 7. **Log Files And History of Operations**
 Track And Log All User Operations To A **Log File**, Allowing For Easy Review of Past Calculations And Operations.
 ---
 
