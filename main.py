@@ -1,4 +1,4 @@
-from Logica import BooleanAlgebra, BinaryOperations, TruthTables, NumberSystemConversion
+from Logica import BooleanAlgebra, BinaryOperations, TruthTables, NumberSystemConversion, KarnaughMap
 
 print(r'''
  /$$                           /$$                    
@@ -21,21 +21,14 @@ Commands:
 2> Truth Tables
 3> Binary Operations (Addition, Subtraction, Multiplication, Division, Shifts and Rotates)
 4> Number System Conversion (Binary, Decimal, Hexadecimal)
+5> Karnaugh Map Simplification (2-variable or 3-variable)
 ''')
 
 try:
     usrInput = int(input('> '))
 
     if usrInput == 1:
-        print('''
-            1> NOT Gate: Inverts A Value
-            2> AND Gate: Returns True If Both Values Are True
-            3> OR Gate: Returns True If Either of The Values Are True
-            4> NAND Gate: Returns True If Not Both Values Are True
-            5> NOR Gate: Returns True Only If Both Values Are False
-            6> XOR Gate: Returns True If Exactly One Value Is True
-            7> XNOR Gate: Returns True If Both Values Are Same
-        ''')
+        print()
 
         valueOneInput = input('Enter Value One (Either True or False)> ')
         valueTwoInput = input('Enter Value Two (Either True or False)> ')
@@ -73,18 +66,7 @@ try:
         print(truthTablesCls.generateTable())
 
     elif usrInput == 3:
-        print('''
-            1> Addition
-            2> Subtraction
-            3> Multiplication
-            4> Division
-            5> Logical Left Shift
-            6> Logical Right Shift
-            7> Arithmetic Left Shift
-            8> Arithmetic Right Shift
-            9> Rotate Left Shift
-            10> Rotate Right Shift
-        ''')
+        print()
 
         try:
             operation = int(input('Enter Operation> '))
@@ -94,7 +76,8 @@ try:
 
             try:
                 varOne = int(input('Enter Value One> '))
-                varTwo = int(input('Enter Value Two> ') if operation < 5 else "0")  # Only need second value for addition, subtraction, etc.
+
+                varTwo = 0 if operation in range(5, 11) else int(input('Enter Value Two> '))
             except ValueError:
                 print("Invalid Input! Please Enter Valid Integers For Binary Operations.")
                 exit()
@@ -102,13 +85,13 @@ try:
             binaryOperationsCls = BinaryOperations(varOne, varTwo)
 
             if operation == 1:
-                binaryOperationsCls.binaryAddition()
+                print(f"Addition Result: {binaryOperationsCls.binaryAddition()}")
             elif operation == 2:
-                binaryOperationsCls.binarySubtraction()
+                print(f"Subtraction Result: {binaryOperationsCls.binarySubtraction()}")
             elif operation == 3:
-                binaryOperationsCls.binaryMultiplication()
+                print(f"Multiplication Result: {binaryOperationsCls.binaryMultiplication()}")
             elif operation == 4:
-                binaryOperationsCls.binaryDivision()
+                print(f"Division Result: {binaryOperationsCls.binaryDivision()}")
             elif operation == 5:
                 positions = int(input("Enter Number of Positions To Shift Left: "))
                 print(f"Logical Left Shift Result: {binaryOperationsCls.logicalLeftShift(positions)}")
@@ -132,49 +115,60 @@ try:
             print("Invalid Operation Input! Please Enter A Number Between 1 And 10")
 
     elif usrInput == 4:
-        print('''
-        1> Convert Binary To Decimal
-        2> Convert Binary To Hexadecimal
-        3> Convert Decimal To Binary
-        4> Convert Decimal To Hexadecimal
-        5> Convert Hexadecimal To Binary
-        6> Convert Hexadecimal To Decimal
-        ''')
+        print()
 
-        operation = int(input('Enter Operation> '))
-        
-        if operation == 1:
-            binaryValue = input('Enter Binary Value> ')
-            decimalResult = NumberSystemConversion.binaryToDecimal(binaryValue)
-            print(f"Binary {binaryValue} To Decimal: {decimalResult}")
+        try:
+            operation = int(input('Enter Operation> '))
 
-        elif operation == 2:
-            binaryValue = input('Enter Binary Value> ')
-            hexadecimalResult = NumberSystemConversion.binaryToHexadecimal(binaryValue)
-            print(f"Binary {binaryValue} To Hexadecimal: {hexadecimalResult}")
+            if operation == 1:
+                binaryValue = input('Enter Binary Value> ')
+                decimalResult = NumberSystemConversion.binaryToDecimal(binaryValue)
+                print(f"Binary {binaryValue} To Decimal: {decimalResult}")
+            elif operation == 2:
+                binaryValue = input('Enter Binary Value> ')
+                hexadecimalResult = NumberSystemConversion.binaryToHexadecimal(binaryValue)
+                print(f"Binary {binaryValue} To Hexadecimal: {hexadecimalResult}")
+            elif operation == 3:
+                decimal_value = int(input('Enter Decimal Value> '))
+                binary_result = NumberSystemConversion.decimalToBinary(decimal_value)
+                print(f"Decimal {decimal_value} To Binary: {binary_result}")
+            elif operation == 4:
+                decimal_value = int(input('Enter Decimal Value> '))
+                hexadecimalResult = NumberSystemConversion.decimalToHexadecimal(decimal_value)
+                print(f"Decimal {decimal_value} To Hexadecimal: {hexadecimalResult}")
+            elif operation == 5:
+                hexadecimal_value = input('Enter Hexadecimal Value> ')
+                binary_result = NumberSystemConversion.hexadecimalToBinary(hexadecimal_value)
+                print(f"Hexadecimal {hexadecimal_value} To Binary: {binary_result}")
+            elif operation == 6:
+                hexadecimal_value = input('Enter Hexadecimal Value> ')
+                decimalResult = NumberSystemConversion.hexadecimalToDecimal(hexadecimal_value)
+                print(f"Hexadecimal {hexadecimal_value} To Decimal: {decimalResult}")
+            else:
+                print("Invalid Input! Please Choose A Valid Operation (1-6)")
 
-        elif operation == 3:
-            decimal_value = int(input('Enter Decimal Value> '))
-            binary_result = NumberSystemConversion.decimalToBinary(decimal_value)
-            print(f"Decimal {decimal_value} To Binary: {binary_result}")
+        except ValueError:
+            print("Invalid Input! Please Enter A Valid Operation (1-6)")
 
-        elif operation == 4:
-            decimal_value = int(input('Enter Decimal Value> '))
-            hexadecimalResult = NumberSystemConversion.decimalToHexadecimal(decimal_value)
-            print(f"Decimal {decimal_value} To Hexadecimal: {hexadecimalResult}")
+    elif usrInput == 5:
+        print()
 
-        elif operation == 5:
-            hexadecimal_value = input('Enter Hexadecimal Value> ')
-            binary_result = NumberSystemConversion.hexadecimalToBinary(hexadecimal_value)
-            print(f"Hexadecimal {hexadecimal_value} To Binary: {binary_result}")
+        try:
+            kmapValuesInput = input('Enter K-map Values (4 Values For 2-Variable or 8 Values For 3-Variable, Separated By Commas)> ')
+            kmapValues = [int(x) for x in kmapValuesInput.split(',')]
 
-        elif operation == 6:
-            hexadecimal_value = input('Enter Hexadecimal Value> ')
-            decimalResult = NumberSystemConversion.hexadecimalToDecimal(hexadecimal_value)
-            print(f"Hexadecimal {hexadecimal_value} To Decimal: {decimalResult}")
+            if len(kmapValues) not in [4, 8]:
+                print("Invalid Input! Please Enter Either 4 Values For 2-Variable or 8 Values For 3-Variable K-Map")
+                exit()
 
-        else:
-            print("Invalid Input! Please Choose A Valid Operation (1-6)")
+            kmapCls = KarnaughMap(kmapValues)
+            print("K-Map Table:")
+            print(kmapCls.generateKmap())
+            print("Simplified Expression:")
+            print(kmapCls.simplifyExpression())
+
+        except ValueError:
+            print("Invalid Input! Please Enter Valid Integers For K-Map Values")
 
     else:
         print("Invalid Command Input! Please Enter A Valid Integer For Command Selection")

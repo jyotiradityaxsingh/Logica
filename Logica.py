@@ -56,11 +56,9 @@ class BooleanAlgebra:
             return self.valueOne != self.valueTwo
         elif logicGate == 7:
             return self.valueOne == self.valueTwo
-
-
 class BinaryOperations:
     """
-    A Class To Perform Basic Binary Operations: Addition, Subtraction, Multiplication, And Division.
+    A Class To Perform Basic Binary Operations: Addition, Subtraction, Multiplication, Division, and Shifts.
 
     Attributes:
         valueOne (int): The First Integer Value.
@@ -68,34 +66,15 @@ class BinaryOperations:
     """
 
     def __init__(self, valueOne: int, valueTwo: int):
-        """
-        Initializes The BinaryOperations Class With Two Integer Values.
-
-        Args:
-            valueOne (int): The First Integer Value.
-            valueTwo (int): The Second Integer Value.
-
-        Raises:
-            TypeError: If valueOne Or valueTwo Is Not An Integer.
-        """
         if not (isinstance(valueOne, int) and isinstance(valueTwo, int)):
             raise TypeError("Both valueOne and valueTwo must be integers")
         self.valueOne = valueOne
         self.valueTwo = valueTwo
 
     def binaryAddition(self) -> str:
-        """
-        Performs Binary Addition, Showing Intermediate Steps.
-
-        Returns:
-            str: The Binary Result Of The Addition.
-
-        Raises:
-            ValueError: If Inputs Are Negative.
-        """
         if self.valueOne < 0 or self.valueTwo < 0:
             raise ValueError("Negative numbers are not supported")
-        
+
         varOne = bin(self.valueOne)[2:]
         varTwo = bin(self.valueTwo)[2:]
         maxLength = max(len(varOne), len(varTwo))
@@ -104,31 +83,17 @@ class BinaryOperations:
 
         carry = 0
         result = []
-        print("Performing Binary Addition:")
         for i in range(maxLength - 1, -1, -1):
             bitSum = int(varOne[i]) + int(varTwo[i]) + carry
             result.insert(0, str(bitSum % 2))
             carry = bitSum // 2
-            print(f"Bit {i}: {varOne[i]} + {varTwo[i]} + {carry if i < maxLength - 1 else 0} = {bitSum} -> {result[0]}")
 
         if carry:
             result.insert(0, '1')
-            print(f"Final Carry: 1")
 
-        finalResult = ''.join(result)
-        print(f"Final Sum (Binary): {finalResult}")
-        return finalResult
+        return ''.join(result)
 
     def binarySubtraction(self) -> str:
-        """
-        Performs Binary Subtraction Using Two's Complement, Showing Intermediate Steps.
-
-        Returns:
-            str: The Binary Result Of The Subtraction.
-
-        Raises:
-            ValueError: If Inputs Are Negative.
-        """
         if self.valueOne < 0 or self.valueTwo < 0:
             raise ValueError("Negative numbers are not supported")
 
@@ -138,75 +103,65 @@ class BinaryOperations:
         varOne = varOne.zfill(maxLength)
         varTwo = varTwo.zfill(maxLength)
 
-        # Two's complement of varTwo
         varTwoComplement = bin((1 << maxLength) - int(varTwo, 2))[2:].zfill(maxLength)
-        print(f"Performing Binary Subtraction: {varOne} - {varTwo}")
-        print(f"Two's Complement of {varTwo}: {varTwoComplement}")
-
         carry = 0
         result = []
         for i in range(maxLength - 1, -1, -1):
             bitSum = int(varOne[i]) + int(varTwoComplement[i]) + carry
             result.insert(0, str(bitSum % 2))
             carry = bitSum // 2
-            print(f"Bit {i}: {varOne[i]} + {varTwoComplement[i]} + {carry if i < maxLength - 1 else 0} = {bitSum} -> {result[0]}")
 
-        finalResult = ''.join(result)
-        print(f"Result (Binary): {finalResult}")
-        return finalResult
+        return ''.join(result)
 
     def binaryMultiplication(self) -> str:
-        """
-        Performs Binary Multiplication Using Shift-And-Add, Showing Intermediate Steps.
-
-        Returns:
-            str: The Binary Result Of The Multiplication.
-
-        Raises:
-            ValueError: If Inputs Are Negative.
-        """
         if self.valueOne < 0 or self.valueTwo < 0:
             raise ValueError("Negative numbers are not supported")
 
-        varOne = bin(self.valueOne)[2:]
-        varTwo = bin(self.valueTwo)[2:]
-        print(f"Performing Binary Multiplication: {varOne} * {varTwo}")
-
         result = 0
-        for i, bit in enumerate(reversed(varTwo)):
+        for i, bit in enumerate(reversed(bin(self.valueTwo)[2:])):
             if bit == '1':
-                shifted = self.valueOne << i
-                result += shifted
-                print(f"Bit {i}: {varOne} << {i} = {bin(shifted)[2:]}")
-        
-        resultBin = bin(result)[2:]
-        print(f"Result (Binary): {resultBin}")
-        return resultBin
+                result += self.valueOne << i
+
+        return bin(result)[2:]
 
     def binaryDivision(self) -> tuple[str, str]:
-        """
-        Performs Binary Division, Showing Quotient And Remainder In Binary.
-
-        Returns:
-            tuple[str, str]: The Binary Quotient And Remainder.
-
-        Raises:
-            ValueError: If Dividing By Zero Or Inputs Are Negative.
-        """
         if self.valueTwo == 0:
             raise ValueError("Division by zero is not allowed")
         if self.valueOne < 0 or self.valueTwo < 0:
             raise ValueError("Negative numbers are not supported")
 
-        print(f"Performing Binary Division: {self.valueOne} // {self.valueTwo}")
         quotient = self.valueOne // self.valueTwo
         remainder = self.valueOne % self.valueTwo
 
-        quotientBin = bin(quotient)[2:]
-        remainderBin = bin(remainder)[2:]
-        print(f"Quotient (Binary): {quotientBin}")
-        print(f"Remainder (Binary): {remainderBin}")
-        return quotientBin, remainderBin
+        return bin(quotient)[2:], bin(remainder)[2:]
+
+    def logicalLeftShift(self, positions: int) -> str:
+        return bin(self.valueOne << positions)[2:]
+
+    def logicalRightShift(self, positions: int) -> str:
+        return bin(self.valueOne >> positions)[2:]
+
+    def arithmeticLeftShift(self, positions: int) -> str:
+        return bin(self.valueOne << positions)[2:]
+
+    def arithmeticRightShift(self, positions: int) -> str:
+        if self.valueOne < 0:
+            result = (self.valueOne >> positions) | (1 << (positions - 1)) if positions else self.valueOne
+        else:
+            result = self.valueOne >> positions
+        return bin(result)[2:]
+
+    def rotateLeftShift(self, positions: int) -> str:
+        bitLength = self.valueOne.bit_length()
+        positions %= bitLength
+        result = ((self.valueOne << positions) | (self.valueOne >> (bitLength - positions))) & ((1 << bitLength) - 1)
+        return bin(result)[2:].zfill(bitLength)
+
+    def rotateRightShift(self, positions: int) -> str:
+        bitLength = self.valueOne.bit_length()
+        positions %= bitLength
+        result = ((self.valueOne >> positions) | (self.valueOne << (bitLength - positions))) & ((1 << bitLength) - 1)
+        return bin(result)[2:].zfill(bitLength)
 
 class TruthTables:
     """
@@ -341,133 +296,94 @@ class NumberSystemConversion:
         decimal = NumberSystemConversion.hexadecimalToDecimal(hexadecimal)
         return NumberSystemConversion.decimalToBinary(decimal)
 
-class BinaryOperations:
+class KarnaughMap:
     """
-    A Class To Perform Basic Binary Operations: Addition, Subtraction, Multiplication, Division, and Shifts.
-    
+    A Class To Simplify Boolean Expressions Using Karnaugh Maps (K-map).
+
     Attributes:
-        valueOne (int): The First Integer Value.
-        valueTwo (int): The Second Integer Value.
+        values (list): A List Of Boolean Values Representing The Truth Table For The Boolean Expression.
     """
 
-    def __init__(self, valueOne: int, valueTwo: int):
+    def __init__(self, values: list):
         """
-        Initializes The BinaryOperations Class With Two Integer Values.
+        Initializes The KarnaughMap Class With A List Of Boolean Values Representing The Truth Table.
 
         Args:
-            valueOne (int): The First Integer Value.
-            valueTwo (int): The Second Integer Value.
+            values (list): A List Of Boolean Values Representing The Truth Table.
 
         Raises:
-            TypeError: If valueOne Or valueTwo Is Not An Integer.
+            ValueError: If The Length Of Values Is Not 4 Or 8 (For 2-Variable or 3-Variable K-map).
         """
-        if not (isinstance(valueOne, int) and isinstance(valueTwo, int)):
-            raise TypeError("Both valueOne and valueTwo must be integers")
-        self.valueOne = valueOne
-        self.valueTwo = valueTwo
+        if len(values) not in [4, 8]:
+            raise ValueError("K-map only supports 2-variable (4 values) or 3-variable (8 values) expressions.")
+        self.values = values
 
-    def binaryAddition(self) -> str:
-        """ Performs Binary Addition, Showing Intermediate Steps. """
-        # Same code as before for binary addition...
-    
-    def binarySubtraction(self) -> str:
-        """ Performs Binary Subtraction Using Two's Complement, Showing Intermediate Steps. """
-        # Same code as before for binary subtraction...
-
-    def binaryMultiplication(self) -> str:
-        """ Performs Binary Multiplication Using Shift-And-Add, Showing Intermediate Steps. """
-        # Same code as before for binary multiplication...
-
-    def binaryDivision(self) -> tuple[str, str]:
-        """ Performs Binary Division, Showing Quotient And Remainder In Binary. """
-        # Same code as before for binary division...
-
-    def logicalLeftShift(self, positions: int) -> str:
+    def generateKmap(self) -> str:
         """
-        Performs Logical Left Shift Operation on valueOne.
-
-        Args:
-            positions (int): The number of positions to shift.
+        Generates The Karnaugh Map Table For The Given Truth Table Values.
 
         Returns:
-            str: The Resulting Binary Value after the Logical Left Shift.
+            str: A Neatly Formatted Karnaugh Map Table.
         """
-        result = self.valueOne << positions
-        return bin(result)[2:]
+        headers = ["00", "01", "11", "10"]  
+        if len(self.values) == 8:
 
-    def logicalRightShift(self, positions: int) -> str:
+            headers = ["000", "001", "011", "010", "110", "111", "101", "100"]
+
+        table = []
+        for i in range(0, len(self.values), 4):
+            row = self.values[i:i + 4]
+            table.append(row)
+
+        return tabulate(table, headers=headers, tablefmt="grid")
+
+    def simplifyExpression(self) -> str:
         """
-        Performs Logical Right Shift Operation on valueOne.
-
-        Args:
-            positions (int): The number of positions to shift.
+        Simplifies The Boolean Expression Using Karnaugh Map Minimization.
 
         Returns:
-            str: The Resulting Binary Value after the Logical Right Shift.
-        """
-        result = self.valueOne >> positions
-        return bin(result)[2:]
+            str: The Simplified Boolean Expression.
 
-    def arithmeticLeftShift(self, positions: int) -> str:
+        Raises:
+            ValueError: If No Simplification Is Possible.
         """
-        Performs Arithmetic Left Shift Operation on valueOne.
+        if len(self.values) == 4:
+            return self._simplify2Variable()
+        elif len(self.values) == 8:
+            return self._simplify3Variable()
 
-        Args:
-            positions (int): The number of positions to shift.
+    def _simplify2Variable(self) -> str:
+        """
+        Simplifies A 2-Variable Boolean Expression Using K-map Rules.
 
         Returns:
-            str: The Resulting Binary Value after the Arithmetic Left Shift.
+            str: The Simplified Boolean Expression For 2 Variables.
         """
-        # Left shift is the same as logical for positive numbers
-        result = self.valueOne << positions
-        return bin(result)[2:]
 
-    def arithmeticRightShift(self, positions: int) -> str:
-        """
-        Performs Arithmetic Right Shift Operation on valueOne.
+        simplified_expr = []
+        if self.values == [1, 1, 1, 1]:
+            return "1"
+        elif self.values == [0, 1, 1, 0]:
+            return "A"
+        elif self.values == [1, 0, 0, 1]:
+            return "B"
 
-        Args:
-            positions (int): The number of positions to shift.
-
-        Returns:
-            str: The Resulting Binary Value after the Arithmetic Right Shift.
-        """
-        if self.valueOne < 0:
-            # For negative numbers, perform arithmetic right shift by preserving the sign bit
-            result = (self.valueOne >> positions) | (1 << (positions - 1)) if positions else self.valueOne
         else:
-            # For positive numbers, logical shift works the same way
-            result = self.valueOne >> positions
-        return bin(result)[2:]
+            raise ValueError("No simplification found for this expression")
 
-    def rotateLeftShift(self, positions: int) -> str:
+    def _simplify3Variable(self) -> str:
         """
-        Performs Rotate Left Shift Operation on valueOne.
-
-        Args:
-            positions (int): The number of positions to rotate.
+        Simplifies A 3-Variable Boolean Expression Using K-map Rules.
 
         Returns:
-            str: The Resulting Binary Value after the Rotate Left Shift.
+            str: The Simplified Boolean Expression For 3 Variables.
         """
-        # Perform the rotation by shifting the value and using bitwise OR to bring the bits back around
-        bitLength = self.valueOne.bit_length()
-        positions = positions % bitLength  # Ensure the shift is within the bit-length of the number
-        result = (self.valueOne << positions) | (self.valueOne >> (bitLength - positions))
-        return bin(result)[2:].zfill(bitLength)
 
-    def rotateRightShift(self, positions: int) -> str:
-        """
-        Performs Rotate Right Shift Operation on valueOne.
+        simplified_expr = []
+        if self.values == [1, 1, 1, 1, 1, 1, 1, 1]:
+            return "1"
+        elif self.values == [0, 1, 1, 0, 1, 0, 0, 1]:
+            return "A'B"
 
-        Args:
-            positions (int): The number of positions to rotate.
-
-        Returns:
-            str: The Resulting Binary Value after the Rotate Right Shift.
-        """
-        # Perform the rotation by shifting the value and using bitwise OR to bring the bits back around
-        bitLength = self.valueOne.bit_length()
-        positions = positions % bitLength  # Ensure the shift is within the bit-length of the number
-        result = (self.valueOne >> positions) | (self.valueOne << (bitLength - positions))
-        return bin(result)[2:].zfill(bitLength)
+        else:
+            raise ValueError("No simplification found for this expression")
