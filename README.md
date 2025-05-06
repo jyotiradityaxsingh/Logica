@@ -94,22 +94,6 @@ Performing Binary Addition: 101 + 11
 Result (Binary): 1000
 ```
 
----
-## Future Updates
-
-### 1. **Simulate Logic Circuits**
-Create And Simulate **Complex Logic Circuits** Using Combinations of Basic Gates (And, or, Not, Etc.), And Visualize The Results.
-
-### 2. **Timing Analysis For Logic Gates**
-Analyze The **Propagation Delay** of Logic Gates And Simulate The Behavior of Digital Circuits Over Time, A Critical Feature In Real-world Hardware Design.
-
-### 3. **Graphical User Interface (GUI)**
-Transition From The Command Line To A **GUI** Using **Tkinter** or **PyQt**, Making It More User-friendly For Beginners To Interact With Logic Gates And Perform Operations Visually.
-
-### 4. **Log Files And History of Operations**
-Track And Log All User Operations To A **Log File**, Allowing For Easy Review of Past Calculations And Operations.
----
-
 ## Contributing
 
 Feel Free To Fork The Repository, Submit Issues, And Open Pull Requests. We Welcome Contributions To Improve The Program!
